@@ -38,16 +38,16 @@
 		<!-- Include an Ogg video file to support Firefox 3.5 and 3.6 -->
 		<source src="url-to-video.ogg" type="video/ogg">
 		
-		<!-- Provide a Flash fallback for browsers that don't support HTML5 video, e.g. Internet Explorer 6-8.
-		This uses the JW Player Flash Player to play the MP4 file. Set the height and width attributes to the correct values. -->
-		<object type="application/x-shockwave-flash" data="player.swf" width="XXX" height="XXX">
-        	<param name="movie" value="player.swf" />
-        	<param name="flashvars" value="controlbar=over&amp;image=url-to-poster-image.jpg&amp;file=url-to-video.mp4" />
-    	</object>
+		<!-- Add subtitles. Most browsers require a polyfill (such as Playr - http://www.delphiki.com/html5/playr/) to implement this. No polyfill is needed for the latest version of Opera -->
+		<!-- The subtitle files themselves are defined via the WebVTT file format (you can read more about this format at http://www.iandevlin.com/blog/2011/05/html5/webvtt-and-video-subtitles).
+		A sample WebVTT file is provided here (sample-english-subtitles.vtt) --> 
 		
-		<!-- Add a downloadable link for users who do not have a HTML5 video capable browser, nor Flash installed
-		NOTE: This link will be displayed even if the user has Flash installed -->
-		<a href="url-to-video.mp4">Download MP4 video</a>
+		<!-- Specify the WebVTT file that contains English subtitles for this video, and mark it as the default set of subtitles to be used -->
+		<track label="English subtitles" kind="subtitles" srclang="en" src="english-subtitles.vtt" default>
+		
+		<!-- Specify German subtitles that can also be chosen by the user -->
+		<track label="Deutsche Untertitel" kind="subtitles" srclang="de" src="german-subtitles.vtt">
+		
 	</video>
 
 
@@ -59,18 +59,6 @@
 		<small>Copyright &copy; <time datetime="2013">2013</time></small>
 		
 	</footer>
-	
-	<!-- Required to initiate video play in Android -->
-	<script>
-		// Use browser sniffing to check if it's a pre Android 4 device (some say browser sniffing is bad - but I think it's appropriate here)
-		var isPreAndroid4 = parseInt(navigator.userAgent.slice(navigator.userAgent.toLowerCase().indexOf('android')+8)) < 4;
-		
-		// If this is a pre Android 4 device, then add a click handler to play the audio and video when it is "clicked" (touched)
-		if (isAndroid) {
-			var video = document.getElementById("video");
-			video.addEventListener("touchstart", function() { video.play(); }, false);
-		}
-	</script>
 	
 	<!-- Google Analytics - Optimized version by Mathias Bynens -->
 	<!-- See: http://mathiasbynens.be/notes/async-analytics-snippet -->
